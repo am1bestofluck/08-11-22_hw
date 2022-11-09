@@ -7,7 +7,7 @@ void main()
     Console.Clear();
     string[] external_todo= File.ReadLines($"../README.MD").ToArray();//получаем массив строк, строки считаются с нуля
     WriteLine(external_todo[5]);//t1
-    ArrayMultiDimensional t1 = new ArrayMultiDimensional(rows:5,columns:3);
+    ArrayMultiDimensional t1 = new ArrayMultiDimensional(rows:3,columns:10);
     WriteLine("Первоначальный массив:");
     t1.PrintArray();
     WriteLine();

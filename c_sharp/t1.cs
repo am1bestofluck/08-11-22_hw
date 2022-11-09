@@ -99,4 +99,18 @@ class ArrayMultiDimensional
             }
         }
     }
+
+    public static void SortLines(int[,] twoDimensionalArray)
+    {
+        int[] lineModified;
+        for (int row = 0; row < twoDimensionalArray.GetLength(0); row++)
+        {
+            lineModified= new int[twoDimensionalArray.GetLength(1)];
+            for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
+            {
+                lineModified[column]=twoDimensionalArray[row,column];
+            }
+            //сортировка одномерного массива.Бiстрая.
+        }
+    }
 }
