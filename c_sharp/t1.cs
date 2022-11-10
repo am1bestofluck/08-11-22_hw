@@ -6,7 +6,7 @@ using static System.Console;
 // https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/names-of-namespaces
 class ArrayMultiDimensional
 {
-    private const int _minEstimated=0, _maxEstimated=100;
+    protected const int _minEstimated = 0, _maxEstimated = 100;
     //underscore for private fields
     //https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/fields
     //Pascal case for Constants
@@ -14,65 +14,68 @@ class ArrayMultiDimensional
     //camel case for privates XD
     //https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
 
-    public int Columns,Rows;
+    public int Columns, Rows;
     public int? Layers;
-    int?[,,] _content_3d;
-    int[,] _content_2d;
-    public ArrayMultiDimensional(int rows,int columns, int? layers=null)
+    protected int?[,,] _content_3d;
+    protected int[,] _content_2d;
+    public ArrayMultiDimensional(int rows, int columns, int? layers = null)
     // camel case for method Parameters
     {
-        this.Columns=columns;
-        this.Rows=rows;
-        this.Layers=layers;
-        this._content_3d=_fillArray_3d(
-            rows_i:this.Rows,
-            columns_i:this.Columns,
-            layer_i:this.Layers
+        this.Columns = columns;
+        this.Rows = rows;
+        this.Layers = layers;
+        this._content_3d = _fillArray_3d(
+            iRows: this.Rows,
+            iColumns: this.Columns,
+            iLayer: this.Layers
             )!;
-        this._content_2d=_fillArray(
-            rows_i:this.Rows,
-            columns_i:this.Columns);
-        
+        this._content_2d = _fillArray(
+            iRows: this.Rows,
+            iColumns: this.Columns);
+
     }
-    int [,] _fillArray(int rows_i, int columns_i)
+    protected int[,] _fillArray(
+        int iRows, int iColumns,
+        int iMin = _minEstimated,
+        int iMax = _maxEstimated)
     {
         //заполняем двумерный массив, рутина
-        int[,] output=new int[rows_i,columns_i];
+        int[,] output = new int[iRows, iColumns];
         Random content = new Random();
-        for (int row = 0; row < rows_i; row++)
+        for (int row = 0; row < iRows; row++)
+        {
+            for (int column = 0; column < iColumns; column++)
             {
-                for (int column = 0; column < columns_i; column++)
-                {
-                    output[row,column]=content.Next(_minEstimated,_maxEstimated);
-                }
+                output[row, column] = content.Next(iMin,iMax);
             }
+        }
         return output;
     }
-    int?[,,] _fillArray_3d(int rows_i, int columns_i, int? layer_i)
+    int?[,,] _fillArray_3d(int iRows, int iColumns, int? iLayer)
     {
-        if (!layer_i.HasValue) return null!;
+        if (!iLayer.HasValue) return null!;
         else
         {
-        int?[,,] output= new int? [rows_i,columns_i,layer_i.Value];
-        int uniqueValue=10;
-        for (int layer = 0; layer < layer_i.Value; layer++)
-        {
-            for (int row = 0; row < rows_i; row++)
+            int?[,,] output = new int?[iRows, iColumns, iLayer.Value];
+            int uniqueValue = 10;
+            for (int layer = 0; layer < iLayer.Value; layer++)
             {
-                for (int column = 0; column < columns_i; column++)
+                for (int row = 0; row < iRows; row++)
                 {
-                    output[row,column,layer]=uniqueValue;
-                    uniqueValue++;
+                    for (int column = 0; column < iColumns; column++)
+                    {
+                        output[row, column, layer] = uniqueValue;
+                        uniqueValue++;
+                    }
                 }
             }
-        }
-        return output;
+            return output;
         }
     }
-    
+
     public void PrintArray()
     {
-        if (this._content_3d!=null)
+        if (this._content_3d != null)
         {
             for (int layer = 0; layer < this._content_3d.GetLength(2); layer++)
             {
@@ -80,7 +83,7 @@ class ArrayMultiDimensional
                 {
                     for (int column = 0; column < this._content_3d.GetLength(1); column++)
                     {
-                        Write($"[{row} {column} {layer}]: {this._content_3d[row,column,layer]} ");
+                        Write($"[{row} {column} {layer}]: {this._content_3d[row, column, layer]} ");
                     }
                     WriteLine();
                 }
@@ -93,7 +96,7 @@ class ArrayMultiDimensional
             {
                 for (int column = 0; column < this._content_2d.GetLength(1); column++)
                 {
-                    Write($"{this._content_2d[row,column]} ");
+                    Write($"{this._content_2d[row, column]} ");
                 }
                 WriteLine();
             }
@@ -105,10 +108,10 @@ class ArrayMultiDimensional
         int[] lineModified;
         for (int row = 0; row < twoDimensionalArray.GetLength(0); row++)
         {
-            lineModified= new int[twoDimensionalArray.GetLength(1)];
+            lineModified = new int[twoDimensionalArray.GetLength(1)];
             for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
             {
-                lineModified[column]=twoDimensionalArray[row,column];
+                lineModified[column] = twoDimensionalArray[row, column];
             }
             //сортировка одномерного массива.Бiстрая.
         }

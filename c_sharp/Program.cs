@@ -14,17 +14,22 @@ void main()
     WriteLine("После сортировки:");
     t1.PrintArray();
 
-    WriteLine();
+    WriteLine("Enter для продолжения");
+    ReadLine();
     WriteLine(external_todo[16]);//t2
-    WriteLine();
+    WriteLine("Enter для продолжения");
+    ReadLine();
     WriteLine(external_todo[30]);//t3
-    WriteLine();
+    WriteLine("Enter для продолжения");
+    ReadLine();
     WriteLine(external_todo[40]);//t4
     ArrayMultiDimensional t4= new ArrayMultiDimensional(rows:3,columns:4,layers:5);
     t4.PrintArray();
-    WriteLine();
+    WriteLine("Enter для продолжения");
+    ReadLine();
     WriteLine(external_todo[48]);//t5
-    WriteLine();
+    SpiralShell t5 = new SpiralShell(iRows:4,iColumns:4);
+    t5.PrintArray();
     //будем считать что это применение dry
 
 }
