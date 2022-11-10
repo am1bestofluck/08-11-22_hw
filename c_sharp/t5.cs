@@ -22,7 +22,7 @@ class SpiralShell: ArrayMultiDimensional
             output[coordX,iColumns-1]=content;
             content++;
         }
-        for (int coordY = iColumns-1; coordY > 0; coordY--)//последняя строка
+        for (int coordY = iColumns-2; coordY >= 0; coordY--)//последняя строка
         {
             output[iRows-1,coordY]=content;
             content++;
