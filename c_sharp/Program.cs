@@ -4,15 +4,15 @@ using static System.Console;
 Main();
 void Break()
 {
-    WriteLine("Enter для продолжения");
-    ReadLine();
+    // WriteLine("Enter для продолжения");
+    // ReadLine();
 }
 void Main()
 {
     int[] argsT1 =new int[]{3,10};
     int[] argsT4= new int[]{3,4,5};
 
-    Console.Clear();
+    // Console.Clear();
     string[] external_todo= File.ReadLines($"../README.MD").ToArray();//получаем массив строк, строки считаются с нуля
     WriteLine(external_todo[5]);//t1
     ArrayMultiDimensional t1 = new ArrayMultiDimensional(
@@ -20,6 +20,7 @@ void Main()
     WriteLine("Первоначальный массив:");
     t1.PrintArray();
     WriteLine("После сортировки:");
+    ArrayMultiDimensional.SortLines(t1.Get());
     t1.PrintArray();
     Break();
     WriteLine(external_todo[16]);//t2

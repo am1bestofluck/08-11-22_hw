@@ -102,7 +102,41 @@ class ArrayMultiDimensional
             }
         }
     }
-
+    public int[,] Get()
+    {
+        return this._content_2d;
+    }
+    public static void QuickSort(int [] iArray,int iIndexLeft,int iIndexRight)
+    {
+        int mIndexLeft=iIndexLeft, mIndexRight=iIndexRight;
+        int tempSwapValues;
+        int median=(iIndexLeft+iIndexRight)/2;
+        while (mIndexLeft<mIndexRight)
+        {
+            while (iArray[mIndexLeft]<iArray[median])
+            {
+                mIndexLeft++;
+            }//ищем отклонение в меньшую сторону
+            while (iArray[mIndexRight]>iArray[median])
+            {
+                mIndexRight++;
+            }//ищем отклонение в большую сторону
+        }
+        if (iArray[mIndexLeft]>iArray[mIndexRight])
+        {
+            tempSwapValues=iArray[mIndexLeft];
+            iArray[mIndexLeft]=iArray[mIndexRight];
+            iArray[mIndexRight]=tempSwapValues;
+        }//если значение слева больше значения справа, то меняем их местами
+        if (mIndexLeft<iIndexRight)
+        {
+            QuickSort(iArray,mIndexLeft,iIndexRight);
+        }
+        if (mIndexRight>iIndexLeft)
+        {
+            QuickSort(iArray,mIndexRight,iIndexLeft);
+        }
+    }
     public static void SortLines(int[,] twoDimensionalArray)
     {
         int[] lineModified;
@@ -113,7 +147,24 @@ class ArrayMultiDimensional
             {
                 lineModified[column] = twoDimensionalArray[row, column];
             }
+            for (int i = 0; i < lineModified.GetLength(0); i++)
+            {
+                ArrayMultiDimensional.QuickSort(
+                    iArray:lineModified,
+                    iIndexLeft:0,
+                    iIndexRight:lineModified.GetLength(0)-1);
+            }
+            WriteLine();
             //сортировка одномерного массива.Бiстрая.
+            //на входе массив и элемент по которому сортируем(p)
+            //вводим два индекса по краям массива
+            //пока левый индекс меньше правого:
+                //двигаем левый вправо пока не найдём значение больше p
+                //двигаем правый влево пока не найдём значение меньше p 
+                //меняем элементы местами через сопроводительную переменную
+            //получаем два новых подмассива слева и справа от разделителя
+            //дробим массивы рекурсивно пока сопроводительные массивы больше одного элемента
+
+            }
         }
     }
-}
