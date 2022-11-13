@@ -108,8 +108,8 @@ class ArrayMultiDimensional
     }
     public static void QuickSort(int [] iArray,int iIndexLeft,int iIndexRight)
     {
-        //source: https://www.youtube.com/watch?v=DmFXdwy_mH0
-        //source: https://code-maze.com/csharp-quicksort-algorithm/
+        //inspiration:5%: https://www.youtube.com/watch?v=DmFXdwy_mH0
+        //inspiration:85%: https://code-maze.com/csharp-quicksort-algorithm/
      //задаём сопроводительные величины: шаги от сторон к центру и тестовый случай
      int mIndexLeft=iIndexLeft,mIndexRight=iIndexRight,
      testCase=iArray[mIndexLeft];//тестовый случай может быть любой, значит и первый тоже
@@ -117,15 +117,15 @@ class ArrayMultiDimensional
      //ищём что менять местами, пока шаги не встретились
      while (mIndexLeft<=mIndexRight)
      {
-        while (testCase<iArray[mIndexRight])//шагаем влево, если значение меньше теста то Мы его будем переносить
+        while (testCase>iArray[mIndexRight])//шагаем влево, если значение больше теста то Мы его будем переносить
         {
-            mIndexRight--;//пропускаем те значения справа от теста которые и так больше теста
+            mIndexRight--;//пропускаем те значения справа от теста которые и так меньше теста
         }
-        while (testCase>iArray[mIndexLeft])//шагаем вправо, если значение больше теста то Мы его будем переносить
+        while (testCase<iArray[mIndexLeft])//шагаем вправо, если значение меньше теста то Мы его будем переносить
         {
-            mIndexLeft++;//пропускаем те значения слева от теста которые и так меньше теста
+            mIndexLeft++;//пропускаем те значения слева от теста которые и так больше теста
         }
-        if (iArray[mIndexLeft]>=iArray[mIndexRight])//меняем местами, шагаем по индесу чтобы выйти из while
+        if (iArray[mIndexLeft]<=iArray[mIndexRight])//меняем местами, шагаем по индесу чтобы выйти из while
         {
             temp=iArray[mIndexLeft];
             iArray[mIndexLeft]=iArray[mIndexRight];
@@ -166,5 +166,28 @@ class ArrayMultiDimensional
         }
             WriteLine();
         }
-    // public 
+    public void ShowMinimalRow(int[,] twoDimensionalArray)
+    {
+        int[] lineModified;
+        int temp_min;
+        Dictionary<int,Array> output = new Dictionary<int, Array>();
+        for (int row = 0; row < twoDimensionalArray.GetLength(0); row++)
+        {
+            temp_min=0;
+            lineModified = new int[twoDimensionalArray.GetLength(1)];
+            for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
+            {
+                lineModified[column]= twoDimensionalArray[row,column];
+                temp_min+=twoDimensionalArray[row,column];
+            }
+            output.Add(temp_min,lineModified);
+            WriteLine($"{temp_min}: {output[temp_min].GetValue(0)}..{output[temp_min].GetValue(output[temp_min].Length-1)}");
+        }
+        WriteLine(@$"Строка с минимальной({output.Keys.Min()}) суммой элементов: ");
+        foreach (var item in output[output.Keys.Min()])
+        {
+            Write($"{item} ");
+        }
+        
+    }
     }
