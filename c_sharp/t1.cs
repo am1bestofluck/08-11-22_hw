@@ -188,6 +188,6 @@ class ArrayMultiDimensional
         {
             Write($"{item} ");
         }
-        
+        WriteLine();
     }
     }
