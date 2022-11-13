@@ -108,34 +108,39 @@ class ArrayMultiDimensional
     }
     public static void QuickSort(int [] iArray,int iIndexLeft,int iIndexRight)
     {
-        int mIndexLeft=iIndexLeft, mIndexRight=iIndexRight;
-        int tempSwapValues;
-        int median=(iIndexLeft+iIndexRight)/2;
-        while (mIndexLeft<mIndexRight)
+     //задаём сопроводительные величины: шаги от сторон к центру и тестовый случай
+     int mIndexLeft=iIndexLeft,mIndexRight=iIndexRight,
+     testCase=iArray[mIndexLeft];//тестовый случай может быть любой, значит и первый тоже
+     int temp;//сопроводительная, для смены мест значений
+     //ищём что менять местами, пока шаги не встретились
+     while (mIndexLeft<=mIndexRight)
+     {
+        while (testCase<iArray[mIndexRight])//шагаем влево, если значение меньше теста то Мы его будем переносить
         {
-            while (iArray[mIndexLeft]<iArray[median])
-            {
-                mIndexLeft++;
-            }//ищем отклонение в меньшую сторону
-            while (iArray[mIndexRight]>iArray[median])
-            {
-                mIndexRight++;
-            }//ищем отклонение в большую сторону
+            mIndexRight--;//пропускаем те значения справа от теста которые и так больше теста
         }
-        if (iArray[mIndexLeft]>iArray[mIndexRight])
+        while (testCase>iArray[mIndexLeft])//шагаем вправо, если значение больше теста то Мы его будем переносить
         {
-            tempSwapValues=iArray[mIndexLeft];
+            mIndexLeft++;//пропускаем те значения слева от теста которые и так меньше теста
+        }
+        if (iArray[mIndexLeft]>=iArray[mIndexRight])//меняем местами, шагаем по индесу чтобы выйти из while
+        {
+            temp=iArray[mIndexLeft];
             iArray[mIndexLeft]=iArray[mIndexRight];
-            iArray[mIndexRight]=tempSwapValues;
-        }//если значение слева больше значения справа, то меняем их местами
-        if (mIndexLeft<iIndexRight)
+            iArray[mIndexRight]=temp;
+            mIndexLeft++;//шаг чтобы выйти из while
+            mIndexRight--;   
+        //рекурсия.... Сначала создать условие для выхода
+        if (mIndexLeft<iIndexRight)//шагаем пока не дошли слева на право
         {
             QuickSort(iArray,mIndexLeft,iIndexRight);
         }
-        if (mIndexRight>iIndexLeft)
+        if (mIndexRight>iIndexLeft)//шагаем пока не дошли справа на лево
         {
-            QuickSort(iArray,mIndexRight,iIndexLeft);
+            QuickSort(iArray,iIndexLeft,mIndexRight);
         }
+        }
+     }   
     }
     public static void SortLines(int[,] twoDimensionalArray)
     {
@@ -146,14 +151,17 @@ class ArrayMultiDimensional
             for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
             {
                 lineModified[column] = twoDimensionalArray[row, column];
+            
             }
-            for (int i = 0; i < lineModified.GetLength(0); i++)
-            {
-                ArrayMultiDimensional.QuickSort(
+            ArrayMultiDimensional.QuickSort(
                     iArray:lineModified,
                     iIndexLeft:0,
                     iIndexRight:lineModified.GetLength(0)-1);
+            for (int i = 0; i < lineModified.GetLength(0); i++)
+            {
+                twoDimensionalArray[row,i]=lineModified[i];
             }
+        }
             WriteLine();
             //сортировка одномерного массива.Бiстрая.
             //на входе массив и элемент по которому сортируем(p)
@@ -164,7 +172,6 @@ class ArrayMultiDimensional
                 //меняем элементы местами через сопроводительную переменную
             //получаем два новых подмассива слева и справа от разделителя
             //дробим массивы рекурсивно пока сопроводительные массивы больше одного элемента
-
-            }
+        
         }
     }

@@ -4,12 +4,12 @@ using static System.Console;
 Main();
 void Break()
 {
-    // WriteLine("Enter для продолжения");
-    // ReadLine();
+    WriteLine("Enter для продолжения");
+    ReadLine();
 }
 void Main()
 {
-    int[] argsT1 =new int[]{3,10};
+    int[] argsT1 =new int[]{3,15};
     int[] argsT4= new int[]{3,4,5};
 
     // Console.Clear();
@@ -22,6 +22,10 @@ void Main()
     WriteLine("После сортировки:");
     ArrayMultiDimensional.SortLines(t1.Get());
     t1.PrintArray();
+    WriteLine(@"Получилось разобраться, ура-ура. Но с другой стороны, три строчки ниже дадут абсолютно такой же результат.
+List<int> tmp=lineModified.ToList();
+tmp.Sort();
+lineModified=tmp.ToArray();");
     Break();
     WriteLine(external_todo[16]);//t2
     Break();
