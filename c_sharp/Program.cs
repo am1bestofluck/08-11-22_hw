@@ -4,15 +4,21 @@ using static System.Console;
 Main();
 void Break()
 {
+    Console.BackgroundColor = ConsoleColor.Blue;
     WriteLine("Enter для продолжения");
+    Console.BackgroundColor = ConsoleColor.Black;
     ReadLine();
+    Console.Clear();
 }
 void Main()
-{
+{   
     int[] argsT1 =new int[]{3,15};
     int[] argsT4= new int[]{3,4,5};
-
-    // Console.Clear();
+    
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    WriteLine("Аргументы функций не вводятся с консоли, но собраны в одном месте : Program.cs [12:13]");
+    Console.ForegroundColor = ConsoleColor.White;
     string[] external_todo= File.ReadLines($"../README.MD").ToArray();//получаем массив строк, строки считаются с нуля
     WriteLine(external_todo[5]);//t1
     ArrayMultiDimensional t1 = new ArrayMultiDimensional(
@@ -22,10 +28,11 @@ void Main()
     WriteLine("После сортировки:");
     ArrayMultiDimensional.SortLines(t1.Get());
     t1.PrintArray();
-    WriteLine(@"Получилось разобраться, ура-ура. Но с другой стороны, три строчки ниже дадут абсолютно такой же результат.
-List<int> tmp=lineModified.ToList();
-tmp.Sort();
-lineModified=tmp.ToArray();");
+    string longRead="\nПолучилось разобраться, ура-ура. Но с другой стороны, три строчки ниже дадут абсолютно такой же результат."+
+    "\nList<int> tmp=lineModified.ToList();"+
+    "\ntmp.Sort();\n"+
+    "lineModified=tmp.ToArray();\n";
+    WriteLine(longRead);
     Break();
     WriteLine(external_todo[16]);//t2
     Break();
@@ -36,8 +43,10 @@ lineModified=tmp.ToArray();");
     t4.PrintArray();
     Break();
     WriteLine(external_todo[48]);//t5
-    SpiralShell t5 = new SpiralShell();//создал целый класс чтобы по итогу насовать
-    // в конструктор магических чисел. Это фиаско =\ :))
+    SpiralShell t5 = new SpiralShell();
     t5.PrintArray();
+    string shoutOut="Cоздал целый класс чтобы по итогу насовать"+
+    "\nв конструктор магических чисел. Это фиаско =\\ :))";
+    WriteLine(shoutOut);
 
 }

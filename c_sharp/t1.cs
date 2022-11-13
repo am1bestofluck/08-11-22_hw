@@ -108,6 +108,8 @@ class ArrayMultiDimensional
     }
     public static void QuickSort(int [] iArray,int iIndexLeft,int iIndexRight)
     {
+        //source: https://www.youtube.com/watch?v=DmFXdwy_mH0
+        //source: https://code-maze.com/csharp-quicksort-algorithm/
      //задаём сопроводительные величины: шаги от сторон к центру и тестовый случай
      int mIndexLeft=iIndexLeft,mIndexRight=iIndexRight,
      testCase=iArray[mIndexLeft];//тестовый случай может быть любой, значит и первый тоже
@@ -163,15 +165,6 @@ class ArrayMultiDimensional
             }
         }
             WriteLine();
-            //сортировка одномерного массива.Бiстрая.
-            //на входе массив и элемент по которому сортируем(p)
-            //вводим два индекса по краям массива
-            //пока левый индекс меньше правого:
-                //двигаем левый вправо пока не найдём значение больше p
-                //двигаем правый влево пока не найдём значение меньше p 
-                //меняем элементы местами через сопроводительную переменную
-            //получаем два новых подмассива слева и справа от разделителя
-            //дробим массивы рекурсивно пока сопроводительные массивы больше одного элемента
-        
         }
+    // public 
     }
