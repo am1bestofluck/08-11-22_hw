@@ -73,7 +73,9 @@ class ArrayMultiDimensional
         }
     }
 
-    public void PrintArray()
+    public void PrintArray(int?[,] externalMatrix=null!)
+    {
+        if (externalMatrix==null)//этот иф пришлось делать чтобы не писать отдельную процедуру печати для результата умножения матриц
     {
         if (this._content_3d != null)
         {
@@ -101,6 +103,18 @@ class ArrayMultiDimensional
                 WriteLine();
             }
         }
+    }
+    else
+    {
+        for (int row = 0; row < externalMatrix.GetLength(0); row++)
+            {
+                for (int column = 0; column < externalMatrix.GetLength(1); column++)
+                {
+                    Write($"{externalMatrix[row, column]} ");
+                }
+                WriteLine();
+    }
+    }
     }
     public int[,] Get()
     {
@@ -146,48 +160,88 @@ class ArrayMultiDimensional
     }
     public static void SortLines(int[,] twoDimensionalArray)
     {
-        int[] lineModified;
+        int[] lineReArranged;
         for (int row = 0; row < twoDimensionalArray.GetLength(0); row++)
         {
-            lineModified = new int[twoDimensionalArray.GetLength(1)];
+            lineReArranged = new int[twoDimensionalArray.GetLength(1)];
             for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
             {
-                lineModified[column] = twoDimensionalArray[row, column];
+                lineReArranged[column] = twoDimensionalArray[row, column];
             
             }
             ArrayMultiDimensional.QuickSort(
-                    iArray:lineModified,
+                    iArray:lineReArranged,
                     iIndexLeft:0,
-                    iIndexRight:lineModified.GetLength(0)-1);
-            for (int i = 0; i < lineModified.GetLength(0); i++)
+                    iIndexRight:lineReArranged.GetLength(0)-1);
+            for (int i = 0; i < lineReArranged.GetLength(0); i++)
             {
-                twoDimensionalArray[row,i]=lineModified[i];
+                twoDimensionalArray[row,i]=lineReArranged[i];
             }
         }
             WriteLine();
         }
     public void ShowMinimalRow(int[,] twoDimensionalArray)
     {
-        int[] lineModified;
+        int[] lineObserved;
         int temp_min;
         Dictionary<int,Array> output = new Dictionary<int, Array>();
         for (int row = 0; row < twoDimensionalArray.GetLength(0); row++)
         {
             temp_min=0;
-            lineModified = new int[twoDimensionalArray.GetLength(1)];
+            lineObserved = new int[twoDimensionalArray.GetLength(1)];
             for (int column = 0; column < twoDimensionalArray.GetLength(1); column++)
             {
-                lineModified[column]= twoDimensionalArray[row,column];
+                lineObserved[column]= twoDimensionalArray[row,column];
                 temp_min+=twoDimensionalArray[row,column];
             }
-            output.Add(temp_min,lineModified);
+            output.Add(temp_min,lineObserved);
             WriteLine($"{temp_min}: {output[temp_min].GetValue(0)}..{output[temp_min].GetValue(output[temp_min].Length-1)}");
         }
-        WriteLine(@$"Строка с минимальной({output.Keys.Min()}) суммой элементов: ");
-        foreach (var item in output[output.Keys.Min()])
+        WriteLine($"Строка с минимальной({output.Keys.Min()}) суммой элементов: №{output.Keys.ToList().IndexOf(output.Keys.Min())+1}");
+        // foreach (var item in output[output.Keys.Min()])
+        // {
+        //     Write($"{item} ");
+        // }
+        // WriteLine();// задача выводить массив не поставлена
+    }
+
+    public static int?[,] multiplyMatrices( int[,] firstMatrix, int[,] secondMatrix)
+    {
+        if (firstMatrix.GetLength(1)!=secondMatrix.GetLength(0))
         {
-            Write($"{item} ");
+            WriteLine("Размерность матриц не совпадает.");
+            return null!;
         }
-        WriteLine();
+        //c богом...
+        //размерность матрицы на выходе: число колонок из матрицы б, число строк из матрицы а.
+        int?[,] output= new int?[firstMatrix.GetLength(0),secondMatrix.GetLength(1)];
+        int[] tempRow, tempColumn;
+        //каждый элемент расчитывается 
+        for (int row = 0; row < output.GetLength(0); row++)
+        {
+            tempRow= new int[firstMatrix.GetLength(1)];
+            tempColumn= new int[secondMatrix.GetLength(0)];
+            for (int column = 0; column < output.GetLength(1); column++)
+            {
+                for (int collectRow = 0; collectRow < firstMatrix.GetLength(1); collectRow++)
+                {
+                    tempRow[collectRow]=firstMatrix[row,collectRow];
+                }
+                for (int collectColumn = 0; collectColumn < secondMatrix.GetLength(0); collectColumn++)
+                {
+                    tempColumn[collectColumn]=secondMatrix[collectColumn,column];
+                }
+
+                output[row,column]=multiplyTwoArrays(tempRow,tempColumn);//умножаем поэлементно строку на столбец
+            }
+            
+            //сначала все строки на первый столбец потом все строки на второй столбец и так далее... рекурсия?? 
+        }
+        return output;
     }
+    public static int multiplyTwoArrays(int[] iRow,int[] iColumn, int iIndex=0)
+    {
+        if (iIndex==iRow.Length) return 0;
+        else return iRow[iIndex]*iColumn[iIndex]+multiplyTwoArrays(iRow,iColumn,++iIndex);//^^
     }
+}
